@@ -1,0 +1,30 @@
+{
+  "fio": "Гаврик Артём Олегович",
+  "position": "Junior Python-разработчик",
+  "city": "Санкт-Петербург",
+  "salary": 80000,
+  "ready_to_move": true,
+  "updated": "2026-09-25T10:00:00Z",
+  "skills": ["Python", "SQL", "Git", "Docker", "MongoDB", "FastAPI", "Linux", "Pandas"],
+  "education": {
+    "level": "СПО",
+    "place": "Академия Топ",
+    "year": 2026
+  },
+  "experience": [
+    {
+      "company": "Учебный проект «Скрипт подбора кандидатов»",
+      "role": "Разработчик",
+      "months": 12
+    },
+    {
+      "company": "Учебный проект «Каталог товаров»",
+      "role": "Разработчик",
+      "months": 4
+    }
+  ],
+  "contacts": {
+    "email": "gavrik.artem@example.ru",
+    "tg": "@gavrik_ao"
+  }
+}
