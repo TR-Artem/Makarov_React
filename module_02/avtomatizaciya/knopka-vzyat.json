@@ -175,7 +175,7 @@
         "url": "=http://pocketbase:8090/api/collections/obshchezhitie/records/{{ $json.id }}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ { status: 'В работе' } }}",
+        "jsonBody": "={{ { status: 'В работе', master: $json.master } }}",
         "options": {}
       },
       "name": "Статус в базу",

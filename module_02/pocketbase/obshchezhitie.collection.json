@@ -51,6 +51,11 @@
       "name": "updated",
       "onCreate": true,
       "onUpdate": true
+    },
+    {
+      "type": "text",
+      "name": "master",
+      "required": false
     }
   ],
   "listRule": "",

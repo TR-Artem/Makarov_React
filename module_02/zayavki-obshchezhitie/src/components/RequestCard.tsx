@@ -6,6 +6,7 @@ type RequestCardProps = {
   category: Category
   details: string
   status: Status
+  master?: string
   onNext: () => void
   onRemove: () => void
 }
@@ -16,7 +17,7 @@ const NEXT_LABEL: Record<Status, string> = {
   Готово: 'Готово',
 }
 
-function RequestCard({ title, room, category, details, status, onNext, onRemove }: RequestCardProps) {
+function RequestCard({ title, room, category, details, status, master, onNext, onRemove }: RequestCardProps) {
   return (
     <article className="card">
       <div className="card__top">
@@ -27,6 +28,9 @@ function RequestCard({ title, room, category, details, status, onNext, onRemove 
       </div>
       <h3>{title}</h3>
       {details !== '' && <p>{details}</p>}
+      {status === 'В работе' && master !== undefined && master !== '' && (
+        <p className="card__master">Взял: {master}</p>
+      )}
       <div className="card__actions">
         <button onClick={onNext} disabled={status === 'Готово'}>
           {NEXT_LABEL[status]}
