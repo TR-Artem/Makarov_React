@@ -1,0 +1,61 @@
+{
+  "name": "obshchezhitie",
+  "type": "base",
+  "fields": [
+    {
+      "type": "text",
+      "name": "title",
+      "required": true
+    },
+    {
+      "type": "text",
+      "name": "room",
+      "required": true
+    },
+    {
+      "type": "select",
+      "name": "category",
+      "required": true,
+      "maxSelect": 1,
+      "values": [
+        "Сантехника",
+        "Электрика",
+        "Мебель",
+        "Интернет"
+      ]
+    },
+    {
+      "type": "text",
+      "name": "details",
+      "required": false
+    },
+    {
+      "type": "select",
+      "name": "status",
+      "required": true,
+      "maxSelect": 1,
+      "values": [
+        "Новая",
+        "В работе",
+        "Готово"
+      ]
+    },
+    {
+      "type": "autodate",
+      "name": "created",
+      "onCreate": true,
+      "onUpdate": false
+    },
+    {
+      "type": "autodate",
+      "name": "updated",
+      "onCreate": true,
+      "onUpdate": true
+    }
+  ],
+  "listRule": "",
+  "viewRule": "",
+  "createRule": "@request.body.status = \"Новая\"",
+  "updateRule": "@request.body.title:isset = false && @request.body.room:isset = false && @request.body.details:isset = false",
+  "deleteRule": "status = \"Готово\""
+}
