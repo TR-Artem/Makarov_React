@@ -3,11 +3,20 @@ import { useMonitoring } from '../monitoring'
 import { statusText } from '../status'
 
 function SitePage() {
-  const { sites, history, loading } = useMonitoring()
+  const { sites, history, loading, error } = useMonitoring()
   const { id } = useParams()
 
   if (loading) {
     return <main className="main"><p className="empty">Загрузка сайта…</p></main>
+  }
+
+  if (error !== '') {
+    return (
+      <main className="main">
+        <Link to="/" className="back">← Все сайты</Link>
+        <p className="load-error">{error}</p>
+      </main>
+    )
   }
 
   const site = sites.find((s) => s.id === id)
