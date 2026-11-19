@@ -1,0 +1,32 @@
+services:
+  n8n:
+    image: n8nio/n8n:2.45.4
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=Europe/Moscow
+      - TZ=Europe/Moscow
+      - N8N_DEFAULT_LOCALE=en
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  pocketbase:
+    build: ../pocketbase
+    ports:
+      - "8090:8090"
+    volumes:
+      - pb_data:/pb/pb_data
+
+  ollama:
+    image: ollama/ollama:0.40.12
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  n8n_data:
+  pb_data:
+  ollama_data:
