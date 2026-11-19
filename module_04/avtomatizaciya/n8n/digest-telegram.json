@@ -1,0 +1,137 @@
+{
+  "name": "Дайджест: вечером в Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 19
+            }
+          ]
+        }
+      },
+      "name": "Каждый вечер",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b1"
+    },
+    {
+      "parameters": {},
+      "name": "Запустить вручную",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ],
+      "id": "b0"
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.DIGEST_URL }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "name": "Дайджест",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "b2",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "// Новости за сутки — одним сообщением: заголовок, источник и ссылка. У Telegram предел 4096 знаков.\nconst dayAgo = Date.now() - 24 * 60 * 60 * 1000\nconst news = $input.first().json.news.filter((item) => new Date(item.date).getTime() >= dayAgo)\nif (news.length === 0) return []\nlet lines = ''\nlet shown = 0\nfor (const item of news) {\n  const line = `\\n• ${item.title} (${item.source})\\n${item.link}\\n`\n  if (lines.length + line.length > 3800) break\n  lines += line\n  shown++\n}\nlet text = `Дайджест за ${new Date().toLocaleDateString('ru')}: ${news.length} новостей\\n` + lines\nif (shown < news.length) text += `\\n…и ещё ${news.length - shown} — на странице дайджеста`\nreturn [{ json: { text } }]"
+      },
+      "name": "Текст сообщения",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "b3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $env.TELEGRAM_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { chat_id: $env.TELEGRAM_CHAT_ID, text: $json.text, link_preview_options: { is_disabled: true } } }}",
+        "options": {}
+      },
+      "name": "Telegram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "b4",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    }
+  ],
+  "connections": {
+    "Каждый вечер": {
+      "main": [
+        [
+          {
+            "node": "Дайджест",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Запустить вручную": {
+      "main": [
+        [
+          {
+            "node": "Дайджест",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Дайджест": {
+      "main": [
+        [
+          {
+            "node": "Текст сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Текст сообщения": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

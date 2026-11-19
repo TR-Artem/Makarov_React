@@ -1,0 +1,21 @@
+services:
+  n8n:
+    image: n8nio/n8n:2.45.4
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=Europe/Moscow
+      - TZ=Europe/Moscow
+      - N8N_DEFAULT_LOCALE=en
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - DIGEST_URL=${DIGEST_URL}
+      - DIGEST_KEY=${DIGEST_KEY}
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
