@@ -196,6 +196,13 @@ body {
   color: #3d4557;
 }
 
+.card__master {
+  margin: 8px 0 0;
+  color: #2f6fde;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .card__actions {
   display: flex;
   gap: 8px;

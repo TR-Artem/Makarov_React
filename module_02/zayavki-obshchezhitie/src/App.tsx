@@ -102,6 +102,7 @@ function App() {
               category={r.category}
               details={r.details}
               status={r.status}
+              master={r.master}
               onNext={() => handleNext(r.id, r.status)}
               onRemove={() => handleRemove(r.id)}
             />

@@ -9,6 +9,7 @@ export type RequestItem = {
   category: Category
   details: string
   status: Status
+  master?: string
 }
 
 export type NewRequest = {
