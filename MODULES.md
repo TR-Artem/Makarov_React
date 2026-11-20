@@ -4,12 +4,14 @@
 
 | Модуль | Тема | Где лежит | Сайт |
 | --- | --- | --- | --- |
+| **1** | React: первый проект и первый бот | `module_01/` — доска «Общежитие», `localStorage`, вебхук n8n → Telegram | — |
 | **2** | Данные с сервера и ИИ-диспетчер | `module_02/` — доска «Общежитие», PocketBase, процессы n8n | — (нужен локальный PocketBase) |
 | **3** | Несколько экранов, публикация, расписание | `module_03/` — ссылки, чек-лист, результат теста; код в репозитории `Makarov_Veb` | https://tr-artem.github.io/Makarov_Veb/ |
 | **4** | Работа с ИИ-агентом, дайджест | `module_04/` — чек-лист и автоматизация; код в репозитории `digest` | https://tr-artem.github.io/digest/ |
 
 ## Где что смотреть
 
+- **Модуль 1.** `module_01/zayavki` — доска на Vite + React, сохранение в `localStorage`, отправка заявки в n8n. `module_01/avtomatizaciya` — процесс «Заявка → Telegram».
 - **Модуль 2.** `module_02/zayavki-obshchezhitie` — доска на Vite + React, `useRequests`, realtime, отметка «кто взял». `module_02/pocketbase` — коллекция и правила доступа. `module_02/avtomatizaciya` — три процесса n8n, стенд и инструкция.
 - **Модуль 3.** Код и конвейеры: https://github.com/TR-Artem/Makarov_Veb. Чек-лист требований и результат проверочной работы — в `module_03/`.
 - **Модуль 4.** Код: https://github.com/TR-Artem/digest. Задания агенту (`tasks/`), правила проекта (`AGENTS.md`) и журнал — в репозитории `digest`. Чек-лист и автоматизация — в `module_04/`.
